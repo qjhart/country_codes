@@ -1,0 +1,30 @@
+{
+  "name": "country_codes",
+  "version": "1.0.0",
+  "description": "This creates a CSV file from wikidata info on country codes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qjhart/country_codes.git"
+  },
+  "keywords": [
+    "country",
+    "codes",
+    "ISO-3166",
+    "wikidata"
+  ],
+  "author": "Quinn Hart <qjhart@ucdavis.edu>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/qjhart/country_codes/issues"
+  },
+  "homepage": "https://github.com/qjhart/country_codes#readme",
+  "dependencies": {
+    "jsonexport": "^2.0.10",
+    "superagent": "^3.5.2",
+    "wikidata-sdk": "^5.2.2"
+  }
+}

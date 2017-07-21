@@ -1,0 +1,31 @@
+# Select Country Name and Flag from current and former countries
+# This has a special selection  for the former Soviet Union, since it doens't include the proper code in Wikidata :(
+# 
+#  We use the alpha-2 or aph
+SELECT ?country ?countryLabel ?code ?alpha3 ?flag ?start ?end
+WHERE {
+  { SELECT ?country (year(max(?start)) as ?start) (year(max(?end)) as ?end)
+    WHERE {
+      { ?country wdt:P773 ?code } UNION 
+      { ?country wdt:P298 ?code } UNION 
+      { ?country wdt:P297 ?code } UNION 
+      { ?country wdt:P984 ?code .
+        FILTER ( ?code in ("URS") ) } .
+      OPTIONAL { ?country wdt:P571 ?start }.
+      OPTIONAL { ?country wdt:P576 ?end }.
+     } GROUP BY ?country
+  }.
+  OPTIONAL { ?country wdt:P163/wdt:P18 ?flag } .
+  OPTIONAL { { ?country wdt:P773 ?code } 
+            UNION 
+           { ?country wdt:P297 ?code .
+             filter NOT EXISTS { ?country wdt:P773 ?foo }
+           } UNION 
+           { bind ( "SUHH" as ?code)
+             { ?country wdt:P984 ?c .
+             FILTER ( ?c in ("URS") ) } 
+             }
+           }.
+  OPTIONAL { ?country wdt:P298 ?alpha3 } . 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+} order by ?countryLabel
